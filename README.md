@@ -7,6 +7,11 @@
 - 한양대학교 컴퓨터소프트웨어학부 [남하욱](http://github.com/NAMHAUK)
 - KAIST 전산학부 [김민](http://github.com/minggg012)
 
+## B. 개발 환경
+- Framework: React Native
+- Language: Javascript
+- Backend: Node.js + express
+- Database: MariaDB(MySQL)
 
 ## C. 프로젝트 설명
 <img src = "https://user-images.githubusercontent.com/85171279/178475145-0554df43-d6d0-4f72-8534-f4d3f67c7810.png"
