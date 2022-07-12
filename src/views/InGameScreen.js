@@ -71,6 +71,14 @@ const InGameScreen = ({navigation, route}) => {
     console.log(mycardset)
     console.log("=1=1=1=1==1=1=1=1=")
     console.log(myRoundCnt)
+    setCard0(card0 % 1 + mycardset[0])
+    setCard1(card1 % 1 + mycardset[1])
+    setCard2(card2 % 1 + mycardset[2])
+    setCard3(card3 % 1 + mycardset[3])
+    setCard4(card4 % 1 + mycardset[4])
+    setCard5(card5 % 1 + mycardset[5])
+    setCard6(card6 % 1 + mycardset[6])
+    setCard7(card7 % 1 + mycardset[7])
     // const setCard = () => {
     //     useEffect(() => {
     //         setCard0(mycardset[0])
@@ -548,87 +556,6 @@ const InGameScreen = ({navigation, route}) => {
         Alert.alert(null, '놓을 위치를 정해주세요.', [{text:'ok', onPress: () => console.log('정함')}]);
         }
         
-        // Grid 바뀐거 실시간으로 화면에 반영되나? 아니면 다시 화면 출력 해줘야하나
-        
-
-        // 상대 진영에 도착했으면 내가 승리
-        // if(gridArray[16].player==getPlayer()||gridArray[17].player==getPlayer()||gridArray[18].player==getPlayer()){
-        //     socket.emit("playerWin",{userId: getUserInfo().id});
-        //     // 승리 화면으로 이동 (구현 필요)
-        // }
-
-        // // 놓으려고 하는데 더이상 놓을 수 없어버림
-        // if(gridArray[1].player==getPlayer()&&gridArray[2].player==getPlayer()&&gridArray[3].player==getPlayer()){
-        //     socket.emit("playerLose",{userId: getUserInfo().id});
-        //     // 패배 화면으로 이동 (구현 필요)
-        // }
-        // Alert.alert(null, '놓을 위치를 선택해주세요.', [{text: 'ok', onPress: () => console.log('ok')}]);
-        // if (isPressed==0) {
-
-        // }
-        //mycardset[myRoundCnt] = -1
-        // myRoundCnt ++;
-        // nextCard= mycardset[myRoundCnt];
-
-        // var newGrid = {player: getPlayer(), card: nextCard}
-        // gridArray[putLocation]=newGrid;
-        // // useEffect(() => {
-        // //     console.log("safsdfasazz")
-        // //     //setCard()
-        // //     console.log("후하핳하ㅏ하하핳ㅎ핳")
-        // // })
-        
-        
-        // // 내 턴은 끝났으므로, 상대 말들을 한 칸 씩 움직임
-        // for(var i = 1; i<4; i++ ){
-        //     for( var j =3 ; j>0; j --){
-        //         var curindex = i*5+j;
-        //         var type= gridArray[curindex].card;
-        //         var targetGrid = 0;
-        //         if(gridArray[curindex].player != enemyPlayer){
-        //             continue;
-        //         }
-
-        //         if(type==0) {targetGrid = i*5 + j - 1}
-        //         else if(type==1) {targetGrid = curindex - 5 - 1}
-        //         else if(type==2) {targetGrid = curindex - 5 }
-        //         else if(type==3) {targetGrid = curindex - 5 + 1}
-        //         else if(type==4) {targetGrid = curindex + 1}
-        //         else{console.log("type err")}
-                
-        //         // 공격하려는 위치에 있는 카드가 상대 카드면 이동
-        //         if(gridArray[targetGrid].player==enemyPlayer){
-        //             gridArray[targetGrid].player = getPlayer();
-        //             gridArray[targetGrid].card = type;
-        //             gridArray[curindex].player= "0";
-        //             gridArray[curindex].card = -1;
-        //         }
-        //         // 앞으로 한 칸에 다른 카드가 없다면 이동
-        //         else{
-        //             if(gridArray[curindex -5 ].player=="0"){
-        //                 gridArray[curindex- 5 ].player=getPlayer();
-        //                 gridArray[curindex- 5 ].card = type;
-        //                 gridArray[curindex].player = "0";
-        //                 gridArray[curindex].card = -1;
-        //             }
-        //         }
-        //     }
-        // }
-        // // 상대가 내 진영에 도착했으면 패배
-        // if(gridArray[1].player==enemyPlayer||gridArray[2].player==enemyPlayer||gridArray[3].player==enemyPlayer){
-        //     socket.emit("playerLose",{userId: getUserInfo().id});
-        //     // 패배 화면으로 이동 (구현 필요)
-        // }
-        // // 상대 쪽 3칸 움직였는데도 꽉참. 내가 이김
-        // if(gridArray[16].player==enemyPlayer||gridArray[17].player==enemyPlayer||gridArray[18].player==enemyPlayer){
-        //     socket.emit("playerWin",{userId: getUserInfo().id});
-        //     // 승리 화면으로 이동 (구현 필요)
-        // }
-        
-        // // 서버에 자신이 놓은 위치와 카드 종류를 보냄
-        // //Alert.alert(null, '놓을 위치를 선택해주세요.', [{text: 'ok', onPress: () => console.log('ok')}]);
-        
-        // socket.emit("pushPlacedCard",{cardLocation:putLocation, cardType:nextCard});
     })
     
     //var myRoundCnt = 0;
@@ -659,7 +586,7 @@ const InGameScreen = ({navigation, route}) => {
     return (
         <View style={styles.container}>
             <Info1 info = {info2} win = {win2} lose = {lose2}/>
-            <Boxes a={-1} b={-1} c={-1} d={-1} e={-1} f={-1} g={-1} h={-1} i={-1} j={-1} k={-1} l={-1}/>
+            <Boxes a={-1} b={8} c={7} d={-1} e={-1} f={5} g={1} h={-1} i={4} j={-1} k={3} l={2}/>
             <Info2 a={card0} b={card1} c={card2} d={card3} e={card4} f={card5} g={card6} h={card7}/>
             <Skip/>
         </View>
