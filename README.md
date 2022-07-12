@@ -34,6 +34,16 @@
 - logout 버튼을 눌러 login page로 돌아갈 수 있습니다.
  
  --------------------------------------
- ### 2. in game
- <img src = "https://user-images.githubusercontent.com/85171279/178475809-f72e85e5-43e2-4245-8e1b-f2d5e3516439.png" width = "180" height = "400"/> <img src = "https://user-images.githubusercontent.com/85171279/178475924-a4b07993-5788-4e55-bad7-e929211ef573.png" width = "180" height = "400"/> <img src = "https://user-images.githubusercontent.com/85171279/178475617-d66d344b-7db0-4ccd-8c5d-a0884a0560c0.png" width = "180" height = "400" />
+### 2. in game
+<img src = "https://user-images.githubusercontent.com/85171279/178475809-f72e85e5-43e2-4245-8e1b-f2d5e3516439.png" width = "180" height = "400"/> <img src = "https://user-images.githubusercontent.com/85171279/178475924-a4b07993-5788-4e55-bad7-e929211ef573.png" width = "180" height = "400"/> <img src = "https://user-images.githubusercontent.com/85171279/178475617-d66d344b-7db0-4ccd-8c5d-a0884a0560c0.png" width = "180" height = "400" />
 
+#### Implementation Methods
+- socket io를 이용하여 서버와 클라이언트 통신하였습니다.
+- io.on("connection", (socket) => {} 안에 socket.on으로 클라이언트 한테 받은 여러 이벤트에 대해 callback함수를 등록하여 각 상황에 대하여 처리하였습니다.
+
+#### Major Features
+- 각 player는 game을 시작하면 서버로 부터 랜덤하게 받은 8개의 카드를 가집니다.
+- 이 카드는 순서대로 각 round에 자신이 놓을 카드가 됩니다.
+- 각 player는 자신의 턴이 시작하면 자신의 말들을 움직입니다. 이 말들은 가장 먼저 공격이 가능한지 확인 후 가능하면 공격을 하며 이동하고, 그게 아니면 한 칸 앞으로 이동합니다. 움직일 수 없으면 가만히 있습니다.
+- 그런 다음, 자신 앞의 3칸 중 하나에 자신의 카드를 놓고 턴을 종료합니다.
+- player는 자신의 앞 3칸이 다 차서 놓지 못하거나, 상대가 자신의 앞 3칸에 하나라도 들어오면 지게 됩니다.
