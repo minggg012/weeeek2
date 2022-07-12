@@ -29,23 +29,26 @@ const styles = StyleSheet.create({
         height: 50,
         maxWidth: 500,
         borderRadius: 5,
+        borderWidth: 1,
+        borderColor: 'grey',
 
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center"
     },
     container_PRIMARY: {
-        backgroundColor: '#3B71F3'
+      backgroundColor: "#e1b1b1"
     },
     container_TERTIARY: {
-        
+      backgroundColor: '#b1b1c1'
     },
     text_TERTIARY: {
-        color: 'gray'
+        color: 'black'
     },
     text: {
-        color: "white",
+        color: "black",
         fontWeight: "bold",
+        fontSize: 17
     }
 })
 

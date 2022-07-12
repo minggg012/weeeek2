@@ -1,37 +1,30 @@
 import { View, Text, Image, StyleSheet, useWindowDimensions, Dimensions, Button, Alert } from 'react-native'
 import React, { useState, useCallback, useRef } from 'react'
-import Logo from '../../assets/images/cutlery.png'
+import Logo from '../../assets/images/a.gif'
 import CustomInput from '../components/CustomInput'
 import CustomButton from '../components/CustomButton'
 import io from "socket.io-client";
 import { NavigationContainer, createNativeStackNavigator } from '@react-navigation/native';
-import Navigation from './Navigation'
 import "react-native-gesture-handler";
 import { createStackNavigator } from "@react-navigation/stack";
+import UserInfo, { updateCardSet, getCardSet, updateEnemy, updateUser, deleteInof, getUserInfo, getEnemyInfo , updatePlayer, getPlayer} from './UserInfo'
 
-// const socket = io("http://192.249.18.146:443");
-const socket = io("http://192.249.18.165:443");
+
+export const socket = io("http://192.249.18.165:443");
 
 //const stack = createNativeStackNavigator();
 
 const SignInScreen = ({navigation, route}) => {
-    // const toastRef = useRef(null);
-    // const showToast1 = useCallback(() => {
-    //     toastRef.current.show('Id를 입력해주세요.');
-    // }, []);
-    // const showToast2 = useCallback(() => {
-    //     toastRef.current.show('Password를 입력해주세요.');
-    // }, []);
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const win = Dimensions.get('window')
+    // const UserInfo = {
+    //     nickname: "",
+    //     win: 0,
+    //     lose: 0
+    // }
 
-    const UserInfo = {
-        nickname: "",
-        win: 0,
-        lose: 0
-    }
 
     socket.on("tunnel", msgs => {
         console.log("-------------------receive message----------------");
@@ -39,7 +32,6 @@ const SignInScreen = ({navigation, route}) => {
         console.log(msgs.id1);
         console.log(msgs.id2);
         console.log(msgs.id3);
-        //socket.emit("msg", {id1:msgs.id1,id2:msgs.id2,id3:msgs.id3});
     });
 
     const onSignInPress = () => {
@@ -55,20 +47,24 @@ const SignInScreen = ({navigation, route}) => {
             console.log("---------send message");
             // socket.emit("tunnel", object1);
             socket.emit("login", {userId: username, userPassword: password});
+            navigation.navigate('MainPage')
             socket.on("loginResult", loginResult => {
                 if (loginResult.nickname.length == 0) {
                     console.log("---login fail");
                     Alert.alert(null, 'ID 또는 PASSWORD를 잘못 입력했습니다.', [{text:'ok', onPress: () => console.log('ok')}]);
+                    navigation.navigate('MainPage')
                 } else {
                     console.log("---login succeed");
                     console.log(loginResult.nickname);
                     console.log(loginResult.win);
                     console.log(loginResult.lose);
                     
-                    UserInfo.nickname = loginResult.nickname;
-                    UserInfo.win = loginResult.win;
-                    UserInfo.lose = loginResult.lose;
-                    //console.log(UserInfo.win);
+                    updateUser(loginResult.id, loginResult.nickname, loginResult.win, loginResult.lose);
+
+                    // console.log(getUserInfo().win);
+                    // console.log(getUserInfo().nickname);
+                    // console.log(getUserInfo().lose)
+                    navigation.navigate('MainPage')
                 }
 
                 
@@ -88,15 +84,7 @@ const SignInScreen = ({navigation, route}) => {
 
     return (
         <View style={styles.root}>
-            {/* <Image
-                source={Logo}
-                style={[styles.logo, {
-                    width: win.width * 0.7,
-                    height: win.height * 0.3,
-                    maxWidth: 200,
-                    maxHeight: 200,
-                }]}
-            /> */}
+            
             <CustomInput placeholder="Id" value={username} setValue={setUsername} />
             <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
             <CustomButton text="Sign In" onPress={onSignInPress} />
